@@ -46,7 +46,7 @@ curl -XDELETE -H "Content-Type: application/json" -i -d '{"domain": "www.google.
 curl -XDELETE -H "Content-Type: application/json" -i -d '{"domain": "chatgpt.com"}' 'http://localhost:6100/domain'
 ```
 
-4. 通过代理
+4. 通过代理访问
 
 ```shell
 curl -H "Host: www.google.com" http://localhost:6188
