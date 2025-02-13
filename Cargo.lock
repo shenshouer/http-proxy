@@ -1123,6 +1123,7 @@ dependencies = [
  "hyper",
  "log",
  "pingora",
+ "pingora-runtime 0.4.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde",
  "serde_json",
  "thiserror 2.0.11",
@@ -1823,7 +1824,7 @@ dependencies = [
  "pingora-error",
  "pingora-http",
  "pingora-pool",
- "pingora-runtime",
+ "pingora-runtime 0.4.0 (git+https://github.com/cloudflare/pingora.git)",
  "pingora-rustls",
  "pingora-timeout",
  "prometheus",
@@ -1897,7 +1898,7 @@ dependencies = [
  "pingora-error",
  "pingora-http",
  "pingora-ketama",
- "pingora-runtime",
+ "pingora-runtime 0.4.0 (git+https://github.com/cloudflare/pingora.git)",
  "rand",
  "tokio",
 ]
@@ -1945,6 +1946,18 @@ dependencies = [
  "pingora-error",
  "pingora-http",
  "regex",
+ "tokio",
+]
+
+[[package]]
+name = "pingora-runtime"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "31a7c445ca224630961045684201e3cf8da9af0b01f286ed54ff8b2403aaabff"
+dependencies = [
+ "once_cell",
+ "rand",
+ "thread_local",
  "tokio",
 ]
 

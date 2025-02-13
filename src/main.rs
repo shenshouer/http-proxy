@@ -7,19 +7,9 @@ use pingora::{
     server::Server,
 };
 
-// use std::sync::LazyLock;
-
-// pub static SHARED_RUNTIME: LazyLock<tokio::runtime::Runtime> = LazyLock::new(|| {
-//     tokio::runtime::Builder::new_multi_thread()
-//         .enable_all()
-//         .build()
-//         .expect("Failed to create tokio shared runtime")
-// });
-
 fn main() {
     env_logger::init();
 
-    // read command line arguments
     let opt = Opt::parse();
     let mut my_server = Server::new(Some(opt)).unwrap();
     my_server.bootstrap();

@@ -25,6 +25,7 @@ pingora = { git = "https://github.com/cloudflare/pingora.git", features = [
     "proxy",
     "rustls",
 ] }
+pingora-runtime = "0.4.0"
 serde = { version = "1.0.217", features = ["derive"] }
 serde_json = "1.0.138"
 thiserror = "2.0.11"
