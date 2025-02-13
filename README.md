@@ -55,5 +55,5 @@ curl -H "Host: www.google.com" http://localhost:6188
 ## 计划
 
 - [x] 动态添加代理
-- [] 动态自动保存cookie
-- [] 支持添加代理规则
+- [ ] 动态自动保存cookie
+- [ ] 支持添加代理规则
