@@ -78,9 +78,7 @@ impl BackgroundService for UpstreamsHealthCheck {
                     println!("Received stop signal.");
                     break;
                 }
-                _ = period.tick() => {
-                    info!("-->Health check.");
-                }
+                _ = period.tick() => {}
             }
         }
     }
