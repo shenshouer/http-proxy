@@ -8,6 +8,7 @@ use hickory_resolver::{
 };
 use log::info;
 use pingora::{server::ShutdownWatch, services::background::BackgroundService};
+use pingora_runtime::current_handle;
 use tokio::sync::{broadcast, RwLock};
 
 use super::{Error, Op, UpstreamsHealthCheck};
@@ -100,7 +101,7 @@ impl BackgroundService for DNSResolver {
                         // TODO: 此处是否需要spawn一个新的任务?
                         let background_clone = background.clone();
                         let shutdown = shutdown.clone();
-                        tokio::spawn(async move {
+                        current_handle().spawn(async move  {
                             background_clone.start(shutdown.clone()).await;
                         });
                         self.backgrounds.write().await.insert(domain.clone(), background);

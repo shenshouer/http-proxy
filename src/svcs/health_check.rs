@@ -1,12 +1,14 @@
 use std::{net::SocketAddr, sync::Arc, time::Duration};
 
 use async_trait::async_trait;
+use log::info;
 use pingora::{
     lb::{health_check, LoadBalancer},
     prelude::{background_service, RoundRobin},
     server::ShutdownWatch,
     services::background::{BackgroundService, GenBackgroundService},
 };
+use pingora_runtime::current_handle;
 use tokio::{sync::watch, time::interval};
 
 pub struct UpstreamsHealthCheck {
@@ -63,7 +65,7 @@ impl BackgroundService for UpstreamsHealthCheck {
 
         let stop_receiver_clone = stop_receiver.clone();
         let upstreams_clone = self.upstreams.clone();
-        tokio::spawn(async move {
+        current_handle().spawn(async move {
             upstreams_clone.task().start(stop_receiver_clone).await;
         });
         loop {
@@ -76,7 +78,9 @@ impl BackgroundService for UpstreamsHealthCheck {
                     println!("Received stop signal.");
                     break;
                 }
-                _ = period.tick() => {}
+                _ = period.tick() => {
+                    info!("-->Health check.");
+                }
             }
         }
     }
