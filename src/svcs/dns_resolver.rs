@@ -98,7 +98,6 @@ impl BackgroundService for DNSResolver {
                     info!("BackgroundService/DNSResolver::start Received new domain task {data:?}.");
                     if let Ok((domain, socket_addr)) = data {
                         let background = Arc::new(UpstreamsHealthCheck::from(socket_addr));
-                        // TODO: 此处是否需要spawn一个新的任务?
                         let background_clone = background.clone();
                         let shutdown = shutdown.clone();
                         current_handle().spawn(async move  {
