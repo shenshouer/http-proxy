@@ -1,7 +1,6 @@
 use std::{net::SocketAddr, sync::Arc, time::Duration};
 
 use async_trait::async_trait;
-use log::info;
 use pingora::{
     lb::{health_check, LoadBalancer},
     prelude::{background_service, RoundRobin},

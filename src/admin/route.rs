@@ -6,6 +6,7 @@ use axum::{
     Json, Router,
 };
 use hyper::StatusCode;
+use serde::{Deserialize, Serialize};
 use tokio::sync::{broadcast, RwLock};
 
 use crate::svcs::{Op, UpstreamsHealthCheck};
@@ -42,7 +43,7 @@ async fn hello() -> &'static str {
     "Hello from Axum service in Pingora!"
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 struct ParamsDomain {
     domain: String,
 }
@@ -63,12 +64,19 @@ async fn del_domain(
     "ok"
 }
 
-pub async fn get_domains(
-    State(state): State<RouteState>,
-) -> (StatusCode, Json<HashMap<String, Vec<String>>>) {
-    let mut domains = HashMap::new();
+#[derive(Debug, Deserialize, Serialize)]
+struct DomainAddress {
+    domain: String,
+    address: Vec<String>,
+}
+
+async fn get_domains(State(state): State<RouteState>) -> (StatusCode, Json<Vec<DomainAddress>>) {
+    let mut domains = Vec::new();
     for (domain, background) in state.backgrounds.read().await.iter() {
-        domains.insert(domain.clone(), background.get_backends());
+        domains.push(DomainAddress {
+            domain: domain.clone(),
+            address: background.get_backends(),
+        });
     }
     (StatusCode::OK, Json(domains))
 }
